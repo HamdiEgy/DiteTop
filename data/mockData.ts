@@ -1,0 +1,200 @@
+
+import { User, UserRole, Category, Meal, SubscriptionPlan, Order, OrderStatus, UserSubscription, SubscriptionStatus } from '../types';
+
+export type MockUser = User & { password?: string };
+
+export const mockUsers: MockUser[] = [
+  { id: '1', name: 'عبدالله', email: 'member@diettop.com', phone: '966501234567', role: UserRole.MEMBER, password: 'password123', address: '123 شارع الاختبار, الرياض' },
+  { id: '2', name: 'مدير النظام', email: 'admin@diettop.com', phone: '966507654321', role: UserRole.ADMIN, password: 'password123', address: '456 طريق المدير, جدة' },
+];
+
+export const mockCategories: Category[] = [
+  { id: '1', name_ar: 'سلطات', name_en: 'Salads', slug: 'salads', icon: 'fas fa-leaf' },
+  { id: '2', name_ar: 'أطباق بروتين', name_en: 'Protein Dishes', slug: 'protein-dishes', icon: 'fas fa-drumstick-bite' },
+  { id: '3', name_ar: 'وجبات نباتية', name_en: 'Vegan Meals', slug: 'vegan-meals', icon: 'fas fa-seedling' },
+  { id: '4', name_ar: 'شوربات', name_en: 'Soups', slug: 'soups', icon: 'fas fa-bowl-hot' },
+];
+
+export const mockMeals: Meal[] = [
+  {
+    id: '1',
+    categoryId: '1',
+    name_ar: 'سلطة سيزر بالدجاج',
+    name_en: 'Chicken Caesar Salad',
+    description_ar: 'سلطة السيزر الكلاسيكية مع قطع الدجاج المشوي.',
+    description_en: 'Classic Caesar salad with grilled chicken pieces.',
+    image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=870&auto=format&fit=crop',
+    kcal: 350,
+    protein: 25,
+    carbs: 15,
+    fat: 20,
+    priceSAR: 35,
+    tags: ['high-protein'],
+  },
+  {
+    id: '2',
+    categoryId: '1',
+    name_ar: 'سلطة الكينوا',
+    name_en: 'Quinoa Salad',
+    description_ar: 'سلطة منعشة من الكينوا والخضروات الطازجة.',
+    description_en: 'A refreshing salad of quinoa and fresh vegetables.',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=987&auto=format&fit=crop',
+    kcal: 280,
+    protein: 10,
+    carbs: 35,
+    fat: 12,
+    priceSAR: 32,
+    tags: ['vegan', 'gluten-free'],
+  },
+  {
+    id: '3',
+    categoryId: '2',
+    name_ar: 'صدر دجاج مشوي',
+    name_en: 'Grilled Chicken Breast',
+    description_ar: 'صدر دجاج طري مشوي على اللهب يقدم مع الخضار.',
+    description_en: 'Tender flame-grilled chicken breast served with vegetables.',
+    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=987&auto=format=fit=crop',
+    kcal: 450,
+    protein: 50,
+    carbs: 5,
+    fat: 25,
+    priceSAR: 45,
+    tags: ['high-protein', 'keto'],
+  },
+  {
+    id: '4',
+    categoryId: '2',
+    name_ar: 'ستيك سلمون',
+    name_en: 'Salmon Steak',
+    description_ar: 'قطعة من سمك السلمون الطازج مشوية بإتقان.',
+    description_en: 'A perfectly grilled fresh salmon steak.',
+    image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1170&auto=format&fit=crop',
+    kcal: 500,
+    protein: 40,
+    carbs: 0,
+    fat: 35,
+    priceSAR: 55,
+    tags: ['high-protein', 'keto'],
+  },
+  {
+    id: '5',
+    categoryId: '3',
+    name_ar: 'باستا نباتية',
+    name_en: 'Vegan Pasta',
+    description_ar: 'مزيج غني من الخضروات الموسمية في صلصة الطماطم.',
+    description_en: 'A rich mix of seasonal vegetables in a tomato sauce.',
+    image: 'https://images.unsplash.com/photo-1598214886806-2c94a45698f3?q=80&w=987&auto=format&fit=crop',
+    kcal: 380,
+    protein: 12,
+    carbs: 40,
+    fat: 20,
+    priceSAR: 40,
+    tags: ['vegan'],
+  },
+    {
+    id: '6',
+    categoryId: '4',
+    name_ar: 'شوربة العدس',
+    name_en: 'Lentil Soup',
+    description_ar: 'شوربة عدس كريمية وغنية بالنكهات الشرقية.',
+    description_en: 'A creamy lentil soup rich with oriental flavors.',
+    image: 'https://images.unsplash.com/photo-1622119834187-2689531a8a23?q=80&w=987&auto=format&fit=crop',
+    kcal: 250,
+    protein: 15,
+    carbs: 30,
+    fat: 8,
+    priceSAR: 25,
+    tags: ['vegan', 'gluten-free'],
+  },
+];
+
+export const mockSubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: 'plan1',
+    name_ar: 'الباقة الأسبوعية',
+    name_en: 'Weekly Plan',
+    type: 'weekly',
+    description_ar: 'التزام أسبوعي لتجربة وجباتنا الصحية.',
+    description_en: 'A weekly commitment to try our healthy meals.',
+    basePriceSAR: 250,
+    mealsPerDay: 2,
+    daysPerWeek: 5,
+  },
+  {
+    id: 'plan2',
+    name_ar: 'الباقة الشهرية',
+    name_en: 'Monthly Plan',
+    type: 'monthly',
+    description_ar: 'أفضل قيمة للحفاظ على نظامك الصحي طوال الشهر.',
+    description_en: 'Best value to maintain your healthy diet all month long.',
+    basePriceSAR: 950,
+    mealsPerDay: 2,
+    daysPerWeek: 5,
+  },
+  {
+    id: 'plan3',
+    name_ar: 'الباقة السنوية',
+    name_en: 'Yearly Plan',
+    type: 'yearly',
+    description_ar: 'التزام سنوي بأسلوب حياة صحي مع توفير كبير.',
+    description_en: 'An annual commitment to a healthy lifestyle with great savings.',
+    basePriceSAR: 10000,
+    mealsPerDay: 2,
+    daysPerWeek: 5,
+  },
+];
+
+export const mockOrders: Order[] = [
+  {
+    id: 'order1',
+    orderNumber: 'DT-1001',
+    date: '2024-05-20',
+    status: OrderStatus.DELIVERED,
+    items: [
+      { meal: mockMeals[0], quantity: 1 },
+      { meal: mockMeals[2], quantity: 2 },
+    ],
+    total: 125,
+  },
+  {
+    id: 'order2',
+    orderNumber: 'DT-1002',
+    date: '2024-05-22',
+    status: OrderStatus.PREPARING,
+    items: [{ meal: mockMeals[3], quantity: 1 }],
+    total: 55,
+  },
+  {
+    id: 'order3',
+    orderNumber: 'DT-1003',
+    date: '2024-05-23',
+    status: OrderStatus.PENDING,
+    items: [
+      { meal: mockMeals[1], quantity: 1 },
+      { meal: mockMeals[4], quantity: 1 },
+    ],
+    total: 72,
+  },
+];
+
+export const mockUserSubscriptions: UserSubscription[] = [
+  {
+    id: 'sub1',
+    plan: mockSubscriptionPlans[0],
+    status: SubscriptionStatus.ACTIVE,
+    startDate: '2024-05-15',
+    nextRenewalDate: '2024-05-22',
+    selectedMeals: [
+      { day: 1, meals: [{ meal: mockMeals[0], quantity: 1 }, { meal: mockMeals[1], quantity: 1 }] },
+      { day: 2, meals: [{ meal: mockMeals[2], quantity: 2 }] },
+    ],
+  },
+  {
+    id: 'sub2',
+    plan: mockSubscriptionPlans[1],
+    status: SubscriptionStatus.EXPIRED,
+    startDate: '2024-04-01',
+    nextRenewalDate: '2024-05-01',
+    selectedMeals: [],
+  },
+];
