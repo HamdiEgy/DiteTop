@@ -1,13 +1,12 @@
+
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
-import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import Card from '../components/ui/Card';
 
 const CheckoutPage: React.FC = () => {
     const { t } = useLanguage();
-    const { user } = useAuth();
     const { items, subscription, clearCart } = useCart();
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,9 +15,9 @@ const CheckoutPage: React.FC = () => {
 
     const [step, setStep] = useState(1);
     const [shippingInfo, setShippingInfo] = useState({
-        name: user?.name || '',
-        phone: user?.phone || '',
-        address: user?.address || '',
+        name: '',
+        phone: '',
+        address: '',
     });
     const [schedule, setSchedule] = useState({ date: 'today', time: 'morning' });
     const [paymentMethod, setPaymentMethod] = useState('cod');

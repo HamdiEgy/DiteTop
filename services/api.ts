@@ -1,5 +1,5 @@
 
-import { mockUsers, mockCategories, mockMeals, mockSubscriptionPlans, MockUser } from '../data/mockData';
+import { mockCategories, mockMeals, mockSubscriptionPlans, mockUsers, MockUser } from '../data/mockData';
 import { Category, Meal, SubscriptionPlan, User, UserRole } from '../types';
 
 const simulateNetwork = <T,>(data: T): Promise<T> => {
@@ -10,38 +10,37 @@ export const api = {
   fetchCategories: (): Promise<Category[]> => simulateNetwork(mockCategories),
   fetchMeals: (): Promise<Meal[]> => simulateNetwork(mockMeals),
   fetchSubscriptionPlans: (): Promise<SubscriptionPlan[]> => simulateNetwork(mockSubscriptionPlans),
-  
-  login: (email: string, passwordInput: string): Promise<User | null> => {
-    const userWithPassword = mockUsers.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === passwordInput);
-    if (userWithPassword) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...userWithoutPassword } = userWithPassword;
+  // FIX: Implement mock authentication methods to resolve errors in AuthContext.
+  login: (email: string, password: string): Promise<User | null> => {
+    const user = mockUsers.find(u => u.email === email && u.password === password);
+    if (user) {
+      // Don't send password back to the client side
+      const { password: _p, ...userWithoutPassword } = user;
       return simulateNetwork(userWithoutPassword);
     }
     return simulateNetwork(null);
   },
 
   register: (userData: Omit<User, 'id' | 'role'> & { password?: string }): Promise<User | null> => {
-    const existingUser = mockUsers.find(u => u.email.toLowerCase() === userData.email.toLowerCase());
-    if (existingUser) {
-      return simulateNetwork(null); // Email already exists
+    if (mockUsers.some(u => u.email === userData.email)) {
+      // Email already exists
+      return simulateNetwork(null);
     }
-    
     const newUser: MockUser = {
-      id: String(Date.now()), // More unique ID
       ...userData,
-      role: UserRole.MEMBER,
+      id: String(mockUsers.length + 1),
+      role: UserRole.MEMBER, // Default role for new sign-ups
     };
     mockUsers.push(newUser);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userWithoutPassword } = newUser;
+    const { password: _p, ...userWithoutPassword } = newUser;
     return simulateNetwork(userWithoutPassword);
   },
-
+  
   forgotPassword: (email: string): Promise<{ success: boolean }> => {
-    const userExists = mockUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
-    // In a real app, this would trigger an email. Here, we just acknowledge.
-    return simulateNetwork({ success: !!userExists });
-  }
+    console.log(`Password reset requested for ${email}`);
+    // In a real app, this would trigger an email.
+    // For mock, we'll say it's always successful if user exists to simulate the flow.
+    const userExists = mockUsers.some(u => u.email === email);
+    return simulateNetwork({ success: userExists });
+  },
 };

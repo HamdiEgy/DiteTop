@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
-import { useAuth } from '../hooks/useAuth';
 import { Link, useLocation } from 'react-router-dom';
 import { Meal, Category } from '../types';
 import { api } from '../services/api';
@@ -13,7 +12,6 @@ declare const gsap: any;
 
 // Mobile Home Page Component
 const MobileHomePage: React.FC = () => {
-    const { user } = useAuth();
     const { t, language } = useLanguage();
     const [recommendedMeals, setRecommendedMeals] = useState<Meal[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
@@ -40,9 +38,7 @@ const MobileHomePage: React.FC = () => {
         fetchData();
     }, [selectedCategory, searchTerm, language]);
     
-    const greeting = user 
-        ? t('mobileGreetingUser').replace('{{name}}', user.name) 
-        : t('mobileGreetingGuest');
+    const greeting = t('mobileGreetingGuest');
 
     return (
         <div className="bg-stone-50 min-h-full p-5">
@@ -57,7 +53,7 @@ const MobileHomePage: React.FC = () => {
             </header>
 
             <section className="relative h-48 mb-6 rounded-2xl overflow-hidden shadow-lg">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1170&auto=format=fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="Healthy food" />
+                <img src="https://unsplash.com/illustrations/a-plate-of-food-with-carrots-broccoli-cucumbers-and-vBxufiSSdQo" className="absolute inset-0 w-full h-full object-cover" alt="Healthy food" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10"></div>
                 <div className="relative z-10 flex flex-col justify-end h-full p-4 text-white">
                     <h2 className="font-tajawal font-bold text-2xl drop-shadow-md">{t('heroTitlePart1' as any)} {t('heroTitlePart2' as any)}</h2>
@@ -258,7 +254,7 @@ const DesktopHomePage: React.FC = () => {
               </div>
               <div className="relative flex justify-center items-center order-1 md:order-2">
                 <div className="bg-primary/20 rounded-full w-80 h-80 md:w-96 md:h-96 blur-2xl absolute"></div>
-                <img ref={imageRef} src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1170&auto=format&fit=crop" alt="Healthy Meal" className="w-full max-w-sm md:max-w-md rounded-full z-10 aspect-square object-cover" />
+                <img ref={imageRef} src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1170&auto=format=fit=crop" alt="Healthy Meal" className="w-full max-w-sm md:max-w-md rounded-full z-10 aspect-square object-cover" />
               </div>
             </div>
           </section>

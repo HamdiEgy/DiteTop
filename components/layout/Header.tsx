@@ -2,14 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLanguage } from '../../hooks/useLanguage';
-import { useAuth } from '../../hooks/useAuth';
 import { useCart } from '../../hooks/useCart';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
-import { UserRole } from '../../types';
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
-  const { user, logout } = useAuth();
   const { itemCount } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -70,16 +67,8 @@ const Header: React.FC = () => {
               </button>
               {isProfileOpen && (
                 <div className="origin-top-right absolute ltr:right-0 rtl:left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-surface ring-1 ring-black ring-opacity-5 z-50">
-                  {user ? (
-                    <>
-                      <div className="px-4 py-2 text-sm text-text-secondary border-b">{user.name}</div>
-                      <NavLink to="/profile" className="block px-4 py-2 text-sm text-text-primary hover:bg-secondary" onClick={() => setIsProfileOpen(false)}>{t('navProfile')}</NavLink>
-                      {user.role === 'admin' && <NavLink to="/admin" className="block px-4 py-2 text-sm text-text-primary hover:bg-secondary" onClick={() => setIsProfileOpen(false)}>{t('navAdmin')}</NavLink>}
-                      <button onClick={() => { logout(); setIsProfileOpen(false); }} className="w-full text-left block px-4 py-2 text-sm text-text-primary hover:bg-secondary">{t('logout')}</button>
-                    </>
-                  ) : (
-                    <NavLink to="/login" className="w-full text-left block px-4 py-2 text-sm text-text-primary hover:bg-secondary" onClick={() => setIsProfileOpen(false)}>{t('login')}</NavLink>
-                  )}
+                  <NavLink to="/profile" className="block px-4 py-2 text-sm text-text-primary hover:bg-secondary" onClick={() => setIsProfileOpen(false)}>{t('navProfile')}</NavLink>
+                  <NavLink to="/admin" className="block px-4 py-2 text-sm text-text-primary hover:bg-secondary" onClick={() => setIsProfileOpen(false)}>{t('navAdmin')}</NavLink>
                 </div>
               )}
             </div>

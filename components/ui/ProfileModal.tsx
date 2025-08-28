@@ -2,11 +2,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../hooks/useLanguage';
-import { useAuth } from '../../hooks/useAuth';
 
 const ProfileModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useLanguage();
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
@@ -14,11 +12,6 @@ const ProfileModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     onClose();
   };
   
-  const handleLogout = () => {
-    logout();
-    onClose();
-  };
-
   const ActionButton: React.FC<{ onClick: () => void, children: React.ReactNode, className?: string }> = ({ onClick, children, className = ''}) => (
     <button
       onClick={onClick}
@@ -36,21 +29,12 @@ const ProfileModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       >
         <div className="p-4 border-b border-gray-200">
           <h3 className="text-xl font-bold text-center text-text-primary">
-            {user ? `${t('welcome')}, ${user.name}` : t('myProfile')}
+            {t('myProfile')}
           </h3>
         </div>
         <div className="py-2">
-          {user ? (
-            <>
-              <ActionButton onClick={() => handleNavigation('/profile')}>{t('navProfile')}</ActionButton>
-              {user.role === 'admin' && <ActionButton onClick={() => handleNavigation('/admin')}>{t('navAdmin')}</ActionButton>}
-              <ActionButton onClick={handleLogout} className="text-red-600">{t('logout')}</ActionButton>
-            </>
-          ) : (
-            <>
-              <ActionButton onClick={() => handleNavigation('/login')}>{t('login')}</ActionButton>
-            </>
-          )}
+            <ActionButton onClick={() => handleNavigation('/profile')}>{t('navProfile')}</ActionButton>
+            <ActionButton onClick={() => handleNavigation('/admin')}>{t('navAdmin')}</ActionButton>
         </div>
       </div>
     </div>

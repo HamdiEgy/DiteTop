@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { Order, OrderStatus, UserSubscription, SubscriptionStatus, CartItem } from '../types';
-import { mockOrders, mockUserSubscriptions } from '../data/mockData';
+import { mockOrders, mockUserSubscriptions, mockUsers } from '../data/mockData';
 
 const getStatusBadgeStyle = (status: OrderStatus | SubscriptionStatus, t: (key: string) => string) => {
     let textKey = `status_${status.toLowerCase()}`;
@@ -126,9 +125,11 @@ const SubscriptionCard: React.FC<{ sub: UserSubscription, isExpanded: boolean, o
 
 
 const ProfilePage: React.FC = () => {
-    const { user } = useAuth();
     const { t } = useLanguage();
     
+    // Use a static mock user since authentication is removed
+    const user = mockUsers[0];
+
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({ name: '', phone: '', address: '' });
     const [activeTab, setActiveTab] = useState<'orders' | 'subscriptions'>('orders');
@@ -141,19 +142,19 @@ const ProfilePage: React.FC = () => {
         if (user) {
             setFormData({ name: user.name, phone: user.phone, address: user.address || '' });
         }
-        // This would be an API call
+        // This would be an API call in a real app
         setOrders(mockOrders);
         setSubscriptions(mockUserSubscriptions);
     }, [user]);
 
-    if (!user) return null;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSave = () => {
-        // Here you would call an API to update the user's profile
+        // In a real app, this would call an API to update data.
+        // Here, it just simulates saving.
         console.log("Saving data:", formData);
         setIsEditing(false);
     };
@@ -181,7 +182,7 @@ const ProfilePage: React.FC = () => {
                     <div className="bg-surface rounded-2xl shadow-md p-8 mb-8">
                         <div className="flex items-start justify-between">
                             <div className="flex items-center gap-6">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop" alt="Profile" className="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20"/>
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format=fit=crop" alt="Profile" className="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20"/>
                                 <div>
                                     {isEditing ? (
                                         <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="text-3xl font-bold text-text-primary bg-secondary p-1 rounded-md mb-1"/>
