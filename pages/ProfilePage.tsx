@@ -182,7 +182,7 @@ const ProfilePage: React.FC = () => {
                     <div className="bg-surface rounded-2xl shadow-md p-8 mb-8">
                         <div className="flex items-start justify-between">
                             <div className="flex items-center gap-6">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format=fit=crop" alt="Profile" className="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20"/>
+                                <img src="https://pngdownload.io/wp-content/uploads/2024/03/Male-user-avatar-icon-transparent-PNG-image-jpg.webp" alt="Profile" className="w-24 h-24 rounded-full object-cover ring-4 ring-primary/20"/>
                                 <div>
                                     {isEditing ? (
                                         <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="text-3xl font-bold text-text-primary bg-secondary p-1 rounded-md mb-1"/>
@@ -222,7 +222,7 @@ const ProfilePage: React.FC = () => {
             {/* Mobile View */}
             <div className="md:hidden bg-stone-50 min-h-full p-5">
                 <div className="flex flex-col items-center mb-6">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format=fit=crop" alt="Profile" className="w-24 h-24 rounded-full object-cover mb-4 ring-4 ring-white/50 shadow-lg"/>
+                    <img src="https://pngdownload.io/wp-content/uploads/2024/03/Male-user-avatar-icon-transparent-PNG-image-jpg.webp" alt="Profile" className="w-24 h-24 rounded-full object-cover mb-4 ring-4 ring-white/50 shadow-lg"/>
                      {isEditing ? (
                         <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="text-2xl font-bold text-text-primary bg-secondary p-1 rounded-md mb-1 text-center"/>
                      ) : (
