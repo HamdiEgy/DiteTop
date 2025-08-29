@@ -53,7 +53,7 @@ const MobileHomePage: React.FC = () => {
             </header>
 
             <section className="relative h-48 mb-6 rounded-2xl overflow-hidden shadow-lg">
-                <img src="https://images.pexels.com/photos/940302/pexels-photo-940302.jpeg" className="absolute inset-0 w-full h-full object-cover" alt="Healthy food" />
+                <img src="https://marvel-b1-cdn.bc0a.com/f00000000295839/red.msudenver.edu/wp-content/uploads/2023/02/shutterstock_1494882383.jpg" className="absolute inset-0 w-full h-full object-cover" alt="Healthy food" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10"></div>
                 <div className="relative z-10 flex flex-col justify-end h-full p-4 text-white">
                     <h2 className="font-tajawal font-bold text-2xl drop-shadow-md">{t('heroTitlePart1' as any)} {t('heroTitlePart2' as any)}</h2>
@@ -254,7 +254,7 @@ const DesktopHomePage: React.FC = () => {
               </div>
               <div className="relative flex justify-center items-center order-1 md:order-2">
                 <div className="bg-primary/20 rounded-full w-80 h-80 md:w-96 md:h-96 blur-2xl absolute"></div>
-                <img ref={imageRef} src="https://images.pexels.com/photos/940302/pexels-photo-940302.jpeg" alt="Healthy Meal" className="w-full max-w-sm md:max-w-md rounded-full z-10 aspect-square object-cover" />
+                <img ref={imageRef} src="https://marvel-b1-cdn.bc0a.com/f00000000295839/red.msudenver.edu/wp-content/uploads/2023/02/shutterstock_1494882383.jpg" alt="Healthy Meal" className="w-full max-w-sm md:max-w-md rounded-full z-10 aspect-square object-cover" />
               </div>
             </div>
           </section>
